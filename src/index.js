@@ -9,6 +9,7 @@ const formElem = document.querySelector('#search-form');
 const loadMoreBtn = document.querySelector('.load-more');
 const galleryElem = document.querySelector('.gallery');
 
+const simpleLightBox = new SimpleLightbox('.gallery a');
 hideLoadBtn();
 
 const imagesAPI = new ImagesAPI();
@@ -38,7 +39,7 @@ function onFormSubmit(e) {
     } else {
       renderImages(data.hits);
       showLoadBtn();
-      simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+      simpleLightBox.refresh();
       Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images.`);
     }  
   })
@@ -87,7 +88,7 @@ function onLoadMore(){
 imagesAPI.PAGE++;
 imagesAPI.getImages().then(data => {
   renderImages(data.hits);  
-  simpleLightBox = new SimpleLightbox('.gallery a').refresh();
+  simpleLightBox.refresh();
 
   const totalPages = Math.ceil(data.totalHits/imagesAPI.PER_PAGE);
 
